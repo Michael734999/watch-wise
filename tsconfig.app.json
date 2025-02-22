@@ -24,7 +24,8 @@
       "@theme/*": ["theme/*"],
       "@routes/*": ["routes/*"],
       "@providers/*": ["providers/*"],
-      "@features/*": ["features/*"]
+      "@services/*": ["services/*"],
+      "@redux/*": ["redux/*"]
     },
 
     /* Linting */

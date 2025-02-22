@@ -1,9 +1,13 @@
-import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import App from './App.tsx';
+import { ChakraUIProvider } from '@providers/ChakraProvider/ChakraProvider.tsx';
+import { RoutesProvider } from '@providers/RoutesProvider';
+import { Provider } from 'react-redux';
+import store from '@redux/store';
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>
+  <Provider store={store}>
+    <ChakraUIProvider>
+      <RoutesProvider />
+    </ChakraUIProvider>
+  </Provider>
 );
