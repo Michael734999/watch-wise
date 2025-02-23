@@ -6,9 +6,9 @@ import {
 import { AppDispatch, RootState } from '@redux/store';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { FilterOptions } from './Movies.types';
+import { FilterOptions, UseMoviesReturn } from './Movies.types';
 
-export const useMovies = () => {
+export const useMovies = (): UseMoviesReturn => {
   const dispatch = useDispatch<AppDispatch>();
   const { movies, loading, error, filterOption, pageNumber } = useSelector(
     (state: RootState) => state.movies
