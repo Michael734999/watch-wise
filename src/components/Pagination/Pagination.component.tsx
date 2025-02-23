@@ -86,7 +86,7 @@ export const Pagination = ({ table, paginatedData }: PaginationProps) => {
           </SelectContent>
         </SelectRoot>
 
-        <Group attached flexDirection={{ base: 'column', sm: 'row' }}>
+        <Group attached flexDirection={'row'}>
           <PaginationPrevTrigger />
           <PaginationItems />
           <PaginationNextTrigger />
