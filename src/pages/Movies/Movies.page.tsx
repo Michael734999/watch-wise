@@ -39,7 +39,7 @@ export const Movies = () => {
         filterOption={filterOption}
         setFilterOption={setFilterOption}
       />
-      <SimpleGrid columns={[1, 2, 3, 4]} gap={5} width="96%" mt={8}>
+      <SimpleGrid columns={[2, 3, 4]} gap={5} width="96%" mt={8}>
         {movies && (
           <For each={movies.results}>
             {(item) => (
