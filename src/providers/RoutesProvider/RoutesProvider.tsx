@@ -6,6 +6,7 @@ import { lazy, Suspense } from 'react';
 import { Movies } from '@pages/Movies';
 import { MovieDetails } from '@pages/MovieDetails';
 import { MovieSearch } from '@pages/MovieSearch';
+import { NotFound } from '@pages/NotFound';
 
 const StarWarsDetails = lazy(
   () => import('../../pages/StarWarsDetails/StarWarsDetails.page')
@@ -44,6 +45,10 @@ export const RoutesProvider = () => {
         {
           path: '/search',
           element: <MovieSearch />,
+        },
+        {
+          path: '*',
+          element: <NotFound />,
         },
       ],
     },

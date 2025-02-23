@@ -24,6 +24,7 @@ export const Pagination = ({ table, paginatedData }: PaginationProps) => {
       { label: '6', value: 6 },
     ],
   });
+
   return (
     <PaginationRoot
       count={table.getRowModel().rows.length}
@@ -32,16 +33,24 @@ export const Pagination = ({ table, paginatedData }: PaginationProps) => {
       onPageChange={(e) => table.setPageIndex(e.page - 1)}
       variant="solid"
     >
-      <HStack gap={4}>
+      <HStack
+        gap={4}
+        width="100%"
+        flexDirection={{ base: 'column', md: 'row' }}
+        justifyContent="space-between"
+        alignItems="center"
+      >
         {paginatedData.length === 0 ? (
           'No results found'
         ) : (
           <PaginationPageText format="long" flex="1" />
         )}
+
         <SelectRoot
           name="select"
-          width={'50px'}
+          width={{ base: '100%', sm: '50px' }}
           collection={pageOptions}
+          position={'relative'}
           size="sm"
         >
           <SelectTrigger
@@ -50,10 +59,21 @@ export const Pagination = ({ table, paginatedData }: PaginationProps) => {
             alignItems={'center'}
             justifyContent={'center'}
             textAlign={'center'}
+            fontSize={{ base: 'sm', md: 'md' }}
           >
             {paginatedData.length}
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent
+            position="absolute"
+            top="100%"
+            zIndex={10}
+            left="0"
+            alignItems={'center'}
+            width="100%"
+            maxHeight="200px"
+            overflowY="auto"
+            mt={1}
+          >
             {pageOptions.items.map((option) => (
               <SelectItem
                 onClick={() => table.setPageSize(option.value)}
@@ -65,7 +85,8 @@ export const Pagination = ({ table, paginatedData }: PaginationProps) => {
             ))}
           </SelectContent>
         </SelectRoot>
-        <Group attached>
+
+        <Group attached flexDirection={{ base: 'column', sm: 'row' }}>
           <PaginationPrevTrigger />
           <PaginationItems />
           <PaginationNextTrigger />

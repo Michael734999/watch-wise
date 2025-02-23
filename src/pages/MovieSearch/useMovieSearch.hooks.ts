@@ -1,27 +1,33 @@
-import { searchMovies } from '@services/api/tmdb/api';
-import { TMDBMovieResponse } from '@services/api/tmdb/api.types';
-import { useCallback, useEffect, useState } from 'react';
+import {
+  searchMoviesAsync,
+  setPageNumber,
+  setSearchValue,
+} from '@redux/slice/MovieSearch/movieSearch.slice';
+import { AppDispatch, RootState } from '@redux/store';
+import { useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 export const useMovieSearch = () => {
-  const [searchValue, setSearchValue] = useState<string>('');
-  const [pageNumber, setPageNumber] = useState<number>(1);
-  const [searchData, setSearchData] = useState<TMDBMovieResponse | undefined>(
-    undefined
-  );
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<boolean>(false);
+  const dispatch = useDispatch<AppDispatch>();
 
-  const handleMovieSearch = useCallback(async () => {
-    try {
-      setLoading(true);
-      const res = await searchMovies(searchValue, pageNumber);
-      setSearchData(res);
-    } catch {
-      setError(true);
-    } finally {
-      setLoading(false);
-    }
-  }, [pageNumber, searchValue]);
+  const { searchValue, pageNumber, searchData, loading, error } = useSelector(
+    (state: RootState) => state.movieSearch
+  );
+
+  const handleMovieSearch = useCallback(() => {
+    void dispatch(searchMoviesAsync({ searchValue, pageNumber }));
+  }, [dispatch, searchValue, pageNumber]);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(setPageNumber(1));
+    void handleMovieSearch();
+  };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setPageNumber(1));
+    dispatch(setSearchValue(e.target.value));
+  };
 
   useEffect(() => {
     void handleMovieSearch();
@@ -33,8 +39,8 @@ export const useMovieSearch = () => {
     pageNumber,
     searchData,
     error,
-    setSearchValue,
-    handleMovieSearch,
-    setPageNumber,
+    handleSubmit,
+    handleSearchChange,
+    setPageNumber: (value: number) => dispatch(setPageNumber(value)),
   };
 };

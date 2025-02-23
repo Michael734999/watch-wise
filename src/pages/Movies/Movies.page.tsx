@@ -9,16 +9,20 @@ import {
   PaginationRoot,
 } from '@components/ui/pagination';
 import { Loading } from '@components/Loading';
+import { Error } from '@components/Error';
 
 export const Movies = () => {
   const {
     movies,
     loading,
     filterOption,
+    error,
     setFilterOption,
     pageNumber,
     setPageNumber,
   } = useMovies();
+
+  if (error) return <Error />;
 
   if (!movies || loading) return <Loading />;
 

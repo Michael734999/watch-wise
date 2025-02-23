@@ -3,10 +3,13 @@ import { useStarWarsDetails } from './useStarWarsDetails.hooks';
 import { Params, useParams } from 'react-router';
 import { BackButton } from '@components/BackButton';
 import { StarWarsDetailsCard } from '@components/DetailsCard';
+import { Error } from '@components/Error';
 
 const StarWarsDetails = () => {
   const { id } = useParams<Params<string>>();
-  const { movieDetails, loading } = useStarWarsDetails(id!);
+  const { movieDetails, loading, error } = useStarWarsDetails(id!);
+
+  if (error) return <Error />;
 
   return (
     <Flex

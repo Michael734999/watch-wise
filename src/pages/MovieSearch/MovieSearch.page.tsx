@@ -1,4 +1,4 @@
-import { Flex, For, HStack, SimpleGrid, Stack } from '@chakra-ui/react';
+import { Flex, For, HStack, SimpleGrid, Text, Stack } from '@chakra-ui/react';
 import { ImageCard } from '@components/ImageCard';
 import { SearchInput } from '@components/SearchInput';
 import {
@@ -9,6 +9,7 @@ import {
 } from '@components/ui/pagination';
 import { useMovieSearch } from './useMovieSearch.hooks';
 import { Loading } from '@components/Loading';
+import { Error } from '@components/Error';
 
 export const MovieSearch = () => {
   const {
@@ -16,15 +17,13 @@ export const MovieSearch = () => {
     pageNumber,
     searchValue,
     setPageNumber,
-    setSearchValue,
-    handleMovieSearch,
+    handleSearchChange,
+    error,
+    handleSubmit,
     searchData,
   } = useMovieSearch();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    void handleMovieSearch();
-  };
+  if (error) return <Error />;
 
   return (
     <Flex
@@ -38,10 +37,14 @@ export const MovieSearch = () => {
           <SearchInput
             placeholder="Search by movie title"
             value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
+            onChange={handleSearchChange}
           />
           {!searchData || loading ? (
             <Loading />
+          ) : searchData.results.length == 0 ? (
+            <Text fontSize="lg" m={8} textAlign="center">
+              No results available. Please update your search query.
+            </Text>
           ) : (
             <Flex
               height={'100%'}
@@ -64,19 +67,21 @@ export const MovieSearch = () => {
                   )}
                 </For>
               </SimpleGrid>
-              <PaginationRoot
-                my={6}
-                count={searchData.total_results}
-                pageSize={searchData.results.length}
-                page={pageNumber}
-                onPageChange={(e) => setPageNumber(e.page)}
-              >
-                <HStack gap="4">
-                  <PaginationPrevTrigger />
-                  <PaginationPageText />
-                  <PaginationNextTrigger />
-                </HStack>
-              </PaginationRoot>
+              {searchData.results.length > 0 && (
+                <PaginationRoot
+                  my={6}
+                  count={searchData.total_results}
+                  pageSize={searchData.results.length}
+                  page={pageNumber}
+                  onPageChange={(e) => setPageNumber(e.page)}
+                >
+                  <HStack gap="4">
+                    <PaginationPrevTrigger />
+                    <PaginationPageText />
+                    <PaginationNextTrigger />
+                  </HStack>
+                </PaginationRoot>
+              )}
             </Flex>
           )}
         </form>

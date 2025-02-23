@@ -20,6 +20,12 @@ export const MovieDetailsSection = ({ movieDetails }: MovieDetailsProps) => {
       py={'4'}
       zIndex={'-1'}
       background={`linear-gradient(rgba(34, 33, 33, 0.88), rgba(0, 0, 0, 0.88)), url(${POSTER_URL}/${movieDetails?.backdrop_path})`}
+      _light={{
+        background: `linear-gradient(rgba(202, 200, 200, 0.88), rgba(156, 156, 156, 0.88)), url(${POSTER_URL}/${movieDetails?.backdrop_path})`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
       backgroundRepeat={'no-repeat'}
       display={'flex'}
       backgroundSize={'cover'}

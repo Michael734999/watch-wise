@@ -37,6 +37,7 @@ export const ImageCard = ({
         <Card.Footer
           className="footer-overlay"
           bgColor={'rgba(85, 0, 0, 0.81)'}
+          _light={{ bgColor: 'rgba(247, 207, 207, 0.81)' }}
           position={'absolute'}
           bottom={0}
           left={0}

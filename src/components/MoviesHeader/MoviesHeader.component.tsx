@@ -11,6 +11,7 @@ export const MoviesHeader = ({
     setFilterOption(option);
     setPageNumber(1);
   };
+
   return (
     <Flex width={'96%'} mt={'8'} alignItems={'center'} gap={6}>
       <Heading textTransform={'uppercase'} size={'2xl'}>
@@ -19,6 +20,7 @@ export const MoviesHeader = ({
       <Flex alignItems={'center'}>
         <Button
           bg={filterOption === FilterOptions.POPULARITY ? '#ff848c' : '#ececec'}
+          _light={{ color: 'black' }}
           fontWeight={'semibold'}
           borderLeftRadius={'full'}
           onClick={() => handleOnClick(FilterOptions.POPULARITY)}
@@ -30,6 +32,7 @@ export const MoviesHeader = ({
           bg={
             filterOption === FilterOptions.VOTE_AVERAGE ? '#ff848c' : '#ececec'
           }
+          _light={{ color: 'black' }}
           onClick={() => handleOnClick(FilterOptions.VOTE_AVERAGE)}
           fontWeight={'semibold'}
           borderRightRadius={'full'}

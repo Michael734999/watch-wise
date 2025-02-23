@@ -4,10 +4,13 @@ import { Params, useParams } from 'react-router';
 import { VideoIframe } from '@components/VideoIframe';
 import { MovieDetailsSection } from '@components/MovieDetails';
 import { Loading } from '@components/Loading';
+import { Error } from '@components/Error';
 
 export const MovieDetails = () => {
   const { id } = useParams<Params<string>>();
-  const { movieDetails, trailerVideo, loading } = useMovieDetails(id!);
+  const { movieDetails, trailerVideo, loading, error } = useMovieDetails(id!);
+
+  if (error) return <Error />;
 
   if (loading || !movieDetails) return <Loading />;
 
