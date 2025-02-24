@@ -9,6 +9,7 @@ import {
 } from '@chakra-ui/react';
 import { SectionProps } from './Section.types';
 import { useNavigate } from 'react-router';
+import { useCallback } from 'react';
 
 export const Section = <T extends string | number | object | undefined>({
   title,
@@ -19,10 +20,13 @@ export const Section = <T extends string | number | object | undefined>({
 }: SectionProps<T>) => {
   const navigate = useNavigate();
 
-  const handleOnClick = async (item: T, name: string) => {
-    if (!isClickable) return;
-    await navigate(`/starwars/characters/${name}`, { state: item });
-  };
+  const handleOnClick = useCallback(
+    async (item: T, name: string) => {
+      if (!isClickable) return;
+      await navigate(`/starwars/characters/${name}`, { state: item });
+    },
+    [isClickable, navigate]
+  );
 
   return (
     <Flex flexDirection="column" justifyContent={'center'}>

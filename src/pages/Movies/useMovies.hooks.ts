@@ -4,7 +4,7 @@ import {
   setPageNumber,
 } from '@redux/slice/Movie/movies.slice';
 import { AppDispatch, RootState } from '@redux/store';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FilterOptions, UseMoviesReturn } from './Movies.types';
 
@@ -15,16 +15,24 @@ export const useMovies = (): UseMoviesReturn => {
   );
 
   useEffect(() => {
-    void dispatch(fetchMovies({ filterOption, pageNumber }));
+    if (filterOption && pageNumber) {
+      void dispatch(fetchMovies({ filterOption, pageNumber }));
+    }
   }, [dispatch, filterOption, pageNumber]);
-  return {
-    movies,
-    setPageNumber: (page: number) => dispatch(setPageNumber(page)),
-    loading,
-    setFilterOption: (option: FilterOptions) =>
-      dispatch(setFilterOption(option)),
-    pageNumber,
-    filterOption,
-    error,
-  };
+
+  const result = useMemo(
+    () => ({
+      movies,
+      setPageNumber: (page: number) => dispatch(setPageNumber(page)),
+      loading,
+      setFilterOption: (option: FilterOptions) =>
+        dispatch(setFilterOption(option)),
+      pageNumber,
+      filterOption,
+      error,
+    }),
+    [movies, loading, error, filterOption, pageNumber, dispatch]
+  );
+
+  return result;
 };

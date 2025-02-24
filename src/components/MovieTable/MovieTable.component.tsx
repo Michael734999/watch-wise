@@ -7,12 +7,20 @@ import { SearchInput } from '@components/SearchInput';
 import { Loading } from '@components/Loading';
 import { Pagination } from '@components/Pagination';
 import { useNavigate } from 'react-router';
+import { useCallback } from 'react';
 
 export const MovieTable = ({ movies, loading }: MovieTableProps) => {
   const navigate = useNavigate();
   const { table, paginatedData, handleFilterChange, filters } = useMovieTable({
     movies,
   });
+
+  const handleNavigation = useCallback(
+    async (url: string) => {
+      await navigate(url);
+    },
+    [navigate]
+  );
 
   if (!movies || loading) return <Loading />;
 
@@ -61,7 +69,7 @@ export const MovieTable = ({ movies, loading }: MovieTableProps) => {
                 <Table.Row
                   cursor={'pointer'}
                   onClick={() =>
-                    void navigate(`/starwars/${row.original.movie_id}`)
+                    void handleNavigation(`/starwars/${row.original.movie_id}`)
                   }
                   key={row.id}
                 >

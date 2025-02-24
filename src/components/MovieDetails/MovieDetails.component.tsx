@@ -11,6 +11,7 @@ import {
 import { POSTER_URL } from '@services/api/tmdb/api';
 import moment from 'moment';
 import { MovieDetailsProps } from './MovieDetails.types';
+import { BackButton } from '@components/BackButton';
 
 export const MovieDetailsSection = ({ movieDetails }: MovieDetailsProps) => {
   return (
@@ -18,7 +19,6 @@ export const MovieDetailsSection = ({ movieDetails }: MovieDetailsProps) => {
       width={'100%'}
       height={{ base: 'auto', md: '550px' }}
       py={'4'}
-      zIndex={'-1'}
       background={`linear-gradient(rgba(34, 33, 33, 0.88), rgba(0, 0, 0, 0.88)), url(${POSTER_URL}/${movieDetails?.backdrop_path})`}
       _light={{
         background: `linear-gradient(rgba(202, 200, 200, 0.88), rgba(156, 156, 156, 0.88)), url(${POSTER_URL}/${movieDetails?.backdrop_path})`,
@@ -33,6 +33,9 @@ export const MovieDetailsSection = ({ movieDetails }: MovieDetailsProps) => {
       alignItems={'center'}
     >
       <Container maxW={'container.xl'}>
+        <Flex zIndex={10} mb={4}>
+          <BackButton />
+        </Flex>
         <Flex
           alignItems={'center'}
           gap="10"

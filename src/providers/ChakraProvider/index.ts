@@ -1,0 +1,1 @@
+export { ChakraUIProvider } from './ChakraProvider';

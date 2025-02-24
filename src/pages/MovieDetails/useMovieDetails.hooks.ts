@@ -2,8 +2,9 @@ import { fetchMovieDetails } from '@redux/slice/MovieDetails/movieDetails.slice'
 import { AppDispatch, RootState } from '@redux/store';
 import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { UseMovieDetailsReturn } from './MovieDetails.types';
 
-export const useMovieDetails = (id: string) => {
+export const useMovieDetails = (id: string): UseMovieDetailsReturn => {
   const dispatch = useDispatch<AppDispatch>();
   const { movieDetails, loading, error } = useSelector(
     (state: RootState) => state.movieDetails

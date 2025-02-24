@@ -3,6 +3,7 @@ import { POSTER_URL } from '@services/api/tmdb/api';
 import { ImageCardProps } from './ImageCard.types';
 import moment from 'moment';
 import { useNavigate } from 'react-router';
+import { useCallback, useState } from 'react';
 
 export const ImageCard = ({
   title,
@@ -12,9 +13,17 @@ export const ImageCard = ({
   releaseDate,
 }: ImageCardProps) => {
   const navigate = useNavigate();
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
 
-  const handleNavigation = async (id: number) => {
-    await navigate(`/movie/${id}`);
+  const handleNavigation = useCallback(
+    async (id: number) => {
+      await navigate(`/movie/${id}`);
+    },
+    [navigate]
+  );
+
+  const handleImageLoad = () => {
+    setIsImageLoaded(true);
   };
 
   return (
@@ -32,8 +41,13 @@ export const ImageCard = ({
       overflow="hidden"
       borderRadius={0}
     >
-      <Skeleton loading={loading}>
-        <Image src={POSTER_URL + posterUrl} alt={title} />
+      <Skeleton loading={!isImageLoaded || loading}>
+        <Image
+          onLoad={handleImageLoad}
+          onError={handleImageLoad}
+          src={POSTER_URL + posterUrl}
+          alt={title}
+        />
         <Card.Footer
           className="footer-overlay"
           bgColor={'rgba(85, 0, 0, 0.81)'}

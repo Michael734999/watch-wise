@@ -6,8 +6,9 @@ import {
 import { AppDispatch, RootState } from '@redux/store';
 import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { UseMovieSearchReturn } from './MovieSearch.types';
 
-export const useMovieSearch = () => {
+export const useMovieSearch = (): UseMovieSearchReturn => {
   const dispatch = useDispatch<AppDispatch>();
 
   const { searchValue, pageNumber, searchData, loading, error } = useSelector(

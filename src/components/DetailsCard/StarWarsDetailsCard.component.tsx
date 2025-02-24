@@ -3,7 +3,6 @@ import { DataList } from '@components/DataList';
 import { Section } from '@components/Section';
 import {
   CharactersResponse,
-  FilmDetailsResponse,
   PlanetsResponse,
   SpeciesResponse,
   StarshipsResponse,
@@ -11,16 +10,13 @@ import {
 } from '@services/api/starwars/api.types';
 import moment from 'moment';
 import { Loading } from '@components/Loading';
+import { StarWarsDetailsCardProps } from './StarWarsDetailsCard.types';
 
 export const StarWarsDetailsCard = ({
   movieData,
   id,
   loading,
-}: {
-  movieData?: FilmDetailsResponse;
-  id?: string;
-  loading: boolean;
-}) => {
+}: StarWarsDetailsCardProps) => {
   if (!movieData || loading) return <Loading />;
 
   return (

@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/react';
+import { Flex, Stack } from '@chakra-ui/react';
 import { useStarWarsDetails } from './useStarWarsDetails.hooks';
 import { Params, useParams } from 'react-router';
 import { BackButton } from '@components/BackButton';
@@ -19,7 +19,11 @@ const StarWarsDetails = () => {
       alignItems={'center'}
       justifyContent={'center'}
     >
-      {!loading && <BackButton />}
+      {!loading && (
+        <Stack w="90%">
+          <BackButton />
+        </Stack>
+      )}
       <StarWarsDetailsCard loading={loading} id={id} movieData={movieDetails} />
     </Flex>
   );
