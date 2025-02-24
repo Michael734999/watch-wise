@@ -11,6 +11,7 @@ export const Home = () => {
     <Flex
       height={'100%'}
       width={'100%'}
+      data-testid="flex-container"
       alignItems={'center'}
       justifyContent={'center'}
     >

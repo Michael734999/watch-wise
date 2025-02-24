@@ -14,6 +14,7 @@ export const BackButton = () => {
     <Box
       onClick={() => void handleOnClick()}
       cursor={'pointer'}
+      role="button"
       zIndex={10}
       justifyContent={'start'}
       width={'100%'}
@@ -22,11 +23,12 @@ export const BackButton = () => {
     >
       <HStack
         zIndex={10}
+        role="hstack"
         _hover={{ fontWeight: 'semibold' }}
         fontSize={'xl'}
         justifyContent={'start'}
       >
-        <RiArrowLeftFill />
+        <RiArrowLeftFill data-testid="ri-arrow-left-fill" />
         Back
       </HStack>
     </Box>
