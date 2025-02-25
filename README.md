@@ -16,7 +16,7 @@ Watch Wise is a fast and responsive movies web app that provides starwars and ot
 - Redux: A global state management tool for handling global state.
 - Vite: A next-generation, fast, and highly optimized build tool.
 - Chakra UI: A component library that provides customizable and accessible UI elements for faster development.
-- TMDB API: Used for sending emails directly from the frontend (optional integration).
+- TMDB API: Used for fetching movie data.
 
 # Run Locally
 
